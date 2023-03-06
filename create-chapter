@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd chapters
+
+last_chapter=$(ls -l | awk '{print $9}' | cut -d_ -f 1 | sort -n | tail -1)
+
+if [ -z "$last_chapter" ]
+then
+    last_chapter=0
+fi
+
+last_chapter=$(($last_chapter+1))
+
+touch ${last_chapter}_$1.md

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+project_title=$(find -L . *.bib | cut -d . -f 1)
+
+pandoc -H disable_float.tex --bibliography ${project_title}.bib --citeproc -s ./chapters/*.md -o ${project_title}.tex
+pdflatex ${project_title}.tex

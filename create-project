@@ -1,0 +1,57 @@
+#!/bin/bash
+
+SCRIPTPATH=$(dirname $(realpath "$0"))
+echo $SCRIPTPATH
+
+if [ -z "$1" ]
+then
+    echo -e 'Please provide a project name with "\033[32mrhino\033[0m \033[3mproject-name\033[0m"'
+    exit
+fi
+
+mkdir $1
+
+cd $1
+
+mkdir -p chapters
+mkdir -p imgs
+
+cp $SCRIPTPATH/apa.csl .
+cp $SCRIPTPATH/disable_float.tex .
+
+read -p 'Title of paper: ' title
+read -p 'Subtitle: ' subtitle
+read -p 'Author: ' author
+
+touch $1.bib
+
+cd chapters
+
+cat <<< "---
+title: '$title'
+subtitle: '$subtitle'
+author: '$author'
+date: \today
+bibliography: ./$1.bib
+csl: ./apa.csl
+link-citations: true
+numbersections: true
+output:
+  pdf_document:
+  toc: true
+  toc_depth: 2
+  lof: true
+  number_sections: true
+  highlight: espresso
+latex_enginge: xelatex
+include-before:
+- '\`\newpage{}\`{=latex}'
+---
+
+\newpage
+
+\tableofcontents
+
+\newpage" > 0_settings.md
+
+
