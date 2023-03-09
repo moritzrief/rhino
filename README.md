@@ -3,4 +3,4 @@ A small tool designed to help with setting up `pandoc > latex > pdf` for papers 
 
 ## Roadmap
 
-- [] Functionality to change order of chapters
+- [ ] Functionality to change order of chapters
